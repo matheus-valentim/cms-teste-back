@@ -11,7 +11,7 @@ O projeto ainda está em desenvolvimento, mas no momento estou focando no front 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 * Você instalou a versão mais recente do `docker e a imagem mysql do docker`
-* * Você instalou a versão mais recente do `postman ou insomnia`
+* Você instalou a versão mais recente do `postman ou insomnia`
 
 ## 🚀 Instalando <cms-teste-back>
 
