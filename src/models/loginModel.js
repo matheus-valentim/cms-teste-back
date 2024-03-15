@@ -7,13 +7,12 @@ const nodemailer = require("nodemailer");
 const loginModel = async (user) => {
 	const [hash] = await conexao.connection.execute("SELECT * FROM user");
 	const acharUser = hash.find((pessoa) => pessoa.email === user.email);
+	console.log(acharUser);
 	if (acharUser == undefined) {
 		return undefined;
 	}
-	const resultado = await bcrypt.compare(
-		user.senha,
-		hash[acharUser.id - 1].senha
-	);
+
+	const resultado = await bcrypt.compare(user.senha, acharUser.senha);
 	if (!resultado) {
 		return false;
 	}
@@ -23,6 +22,7 @@ const loginModel = async (user) => {
 	return { refreshToken, acessToken };
 };
 const loginAdminModel = async (user) => {
+	console.log("chamou");
 	const [hash] = await conexao.connection.execute("SELECT * FROM useradmin");
 	const acharUser = hash.find((pessoa) => pessoa.email === user.email);
 	if (acharUser == undefined) {
@@ -59,8 +59,13 @@ const registrarUser = async (user) => {
 	}
 	return false;
 };
-
 const recuperarSenha = async (email) => {
+	const [users] = await conexao.connection.execute("SELECT * FROM user");
+	const acharUser = users.find((pessoa) => pessoa.email === email.email);
+	console.log(acharUser);
+	if (!acharUser) {
+		return false;
+	}
 	const transporter = nodemailer.createTransport({
 		host: process.env.SMTP_HOST,
 		port: process.env.SMTP_PORT,
@@ -86,22 +91,22 @@ const recuperarSenha = async (email) => {
 
 	return true;
 };
-
 const validarSenha = async (emailInfo) => {
 	if (gerarNumero == emailInfo.senha) {
 		console.log("foi");
 		console.log(emailInfo);
-
 		const auth = jwt.sign(emailInfo.email, process.env.ACCESS_TOKEN_SECRET);
 		return auth;
 	}
 	console.log(emailInfo);
-
 	console.log(gerarNumero, emailInfo.senha);
+	return false;
 };
 const mudarSenha = async (info) => {
 	if (info.senha1 == info.senha2) {
+		console.log(info.email, "info");
 		const senha = await bcrypt.hash(info.senha1, 10);
+		console.log(senha);
 		const [hash] = await conexao.connection.execute(
 			`UPDATE user SET senha = '${senha}' WHERE email = '${info.email}'`
 		);
@@ -172,7 +177,7 @@ const returnToken = async (token) => {
 	}
 };
 
-const gerarNumero = Math.floor(Math.random() * (999999 - 100000) + 0);
+const gerarNumero = Math.floor(Math.random() * (9999 - 1000) + 0);
 module.exports = {
 	loginModel,
 	loginAdminModel,

@@ -17,7 +17,7 @@ router.post(
 
 router.post(
 	"/registrar",
-	undefinedFieldLogin.undefinedFieldLogin,
+	undefinedFieldLogin.undefinedFieldRegistrar,
 	login.registrarUser
 );
 
@@ -58,6 +58,7 @@ router.post(
 	login.mudarSenha
 );
 router.post("/token", login.retornarToken);
+
 router.post("/tokenadmin", login.retornarAdminToken);
 
 router.put(
