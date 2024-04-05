@@ -47,7 +47,8 @@ coloque o nome do banco (BiscoitoMais),e a senha que voce usou no MYSQL_ROOT_PAS
 Para usar cms-teste-back, siga estas etapas:
 
 ```
-<exemplo_de_uso>
+ative o container
+npm run dev
 ```
 
  
