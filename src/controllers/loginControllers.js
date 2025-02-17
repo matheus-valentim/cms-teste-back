@@ -59,6 +59,7 @@ const recuperarSenha = async (req, res) => {
 };
 const validarSenha = async (req, res) => {
 	const senha = await loginModel.validarSenha(req.body);
+
 	if (senha) {
 		console.log(senha);
 		return res

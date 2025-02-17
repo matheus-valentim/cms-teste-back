@@ -177,7 +177,8 @@ const returnToken = async (token) => {
 	}
 };
 
-const gerarNumero = Math.floor(Math.random() * (9999 - 1000) + 0);
+let gerarNumero = Math.floor(Math.random() * (9999 - 1000) + 0);
+
 module.exports = {
 	loginModel,
 	loginAdminModel,
